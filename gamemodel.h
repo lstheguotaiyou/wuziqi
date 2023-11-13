@@ -1,7 +1,7 @@
 #ifndef GAMEMODEL_H
 #define GAMEMODEL_H
 #include<vector>
-
+#include <QSplashScreen>
 enum Gametype
 {
     MAN,

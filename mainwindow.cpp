@@ -93,8 +93,13 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
         if(i==2)
             left_up_X-=block_size;
         if(i==3)
+        {
             left_up_Y-=block_size;
+            ISchoose = false;
+        }
     }
+
+//    if()
     //TODO:可以优化一下算法的合理写法
     //得到了判距和坐标，画图paintevent里
 
@@ -102,9 +107,14 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
 
 void MainWindow::mouseReleaseEvent(QMouseEvent *event)
 {
-    int x = event->x();
-    int y = event->y();
-    qDebug()<<"clicked "<<x<<" "<<y<<endl;
+//    int x = event->x();
+//    int y = event->y();
+//    qDebug()<<"clicked "<<x<<" "<<y<<endl;
+    //luozi条件判断,1.选中
+    if(ISchoose)
+    {
+
+    }
 }
 
 void MainWindow::set_up()
