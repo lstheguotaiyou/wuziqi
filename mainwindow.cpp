@@ -32,6 +32,7 @@ float MainWindow::distance(int x_1, int y_1, int x_2, int y_2)
 
 void MainWindow::paintEvent(QPaintEvent *event)
 {
+    //paint the layout
     QPainter painter(this);
 //    painter.setRenderHint(QPainter::Antialiasing,true);
 
@@ -40,10 +41,12 @@ void MainWindow::paintEvent(QPaintEvent *event)
         painter.drawLine(margin+i*block_size,margin,margin+i*block_size,this->height()- margin);
         painter.drawLine(margin,margin+i*block_size,this->width()-margin,margin+i*block_size);
     }
-    //
+    //画一个预选中效果，看起来是没有问题的
 
-    QPen pen;
+//    QPen pen;
     QBrush brush;
+    brush.setStyle(Qt::SolidPattern);
+
     if(ISchoose)
     {
 //        if(game->chesscolor ==black)
@@ -53,47 +56,56 @@ void MainWindow::paintEvent(QPaintEvent *event)
 //        }
         if(game->chesscolor ==black)
         {
-            pen.setColor(Qt::black);
+//            pen.setColor(Qt::black);
             brush.setColor(Qt::black);
         }
         else
         {
-            pen.setColor(Qt::white);
+//            pen.setColor(Qt::white);
             brush.setColor(Qt::white);
         }
-
-
-        brush.setStyle(Qt::SolidPattern);
-        painter.setPen(pen);
+//        painter.setPen(pen);
         painter.setBrush(brush);
         painter.drawRect(choose_X-3,choose_Y-3,6,6);
     }
-    //画出棋盘上的妻子
+    //画出棋盘上的棋子
+    //因为不花棋子就看不到棋子了，判断没有必要
+
+
     if(paintzi)
     {
+
         for(int i = 0;i<board_number_size;i++)
         {
             for(int j = 0;j<board_number_size;j++)
             {
                 if(game->board_chess_data[i][j]==1)
                 {
-                    pen.setColor(Qt::black);
+//                    pen.setColor(Qt::black);
                     brush.setColor(Qt::black);
+//                    brush.setStyle(Qt::SolidPattern);
+//                    painter1.setPen(pen);
+                    painter.setBrush(brush);
                     painter.drawEllipse(margin+block_size*i-chess_radius,margin+block_size*j-chess_radius,2*chess_radius,2*chess_radius);
 //                    qDebug()<<i<<","<<j<<endl;
                 }
-                if(game->board_chess_data[i][j]==-1)
+                else if(game->board_chess_data[i][j]==-1)
                 {
-                    pen.setColor(Qt::white);
+//                    pen.setColor(Qt::white);
                     brush.setColor(Qt::white);
+//                    brush.setStyle(Qt::SolidPattern);
+//                    painter2.setPen(pen);
+                    painter.setBrush(brush);
                     painter.drawEllipse(margin+block_size*i-chess_radius,margin+block_size*j-chess_radius,2*chess_radius,2*chess_radius);
 //                    qDebug()<<i<<","<<j<<endl;
 
                 }
             }
         }
+//                paintzi = false;
+
     }
-//    paintzi = false;
+//    qDebug()<<"s"<<endl;
 
 // WARNING:更新函数
     update();
