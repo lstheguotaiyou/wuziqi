@@ -28,6 +28,7 @@ class gamemodel
 {
 public:
     gamemodel();
+    int Isaddfiveheng(int x,int y,int signal);
 public:
     std::vector<std::vector<int>> board_chess_data;
     std::vector<std::vector<int>> board_score_data;

@@ -109,6 +109,7 @@ void MainWindow::paintEvent(QPaintEvent *event)
 
 // WARNING:更新函数
     update();
+    Iswin();
 //painter.drawEllipse(margin+block_size*1-25,margin+block_size*1-25,50,50);
 }
 
@@ -199,20 +200,68 @@ void MainWindow::add_chess_data()
         if(game->chesscolor == black)
         {
             game->board_chess_data[colomn][line] = 1;
+            clicked_color = 1;
             game->chesscolor = white;
             qDebug()<<"1"<<endl;
         }
         else
         {
             game->board_chess_data[colomn][line] = -1;
+            clicked_color = -1;
             game->chesscolor = black;
 //            qDebug()<<"2"<<endl;
 
         }
 
 //        qDebug()<<"luole"<<endl;
-        //luozi标志，在paint函数中判断的
+        //luozi标志，在paint函数中判断的(现在证实是废物)
         paintzi = true;
+        clicked_X = colomn;
+        clicked_Y = line;
+
     }
 }
+
+void MainWindow::Iswin()
+{
+    //根据行列和颜色判断
+    Iswinheng();
+    if(game->gamestatus == WIN)
+    {
+        qDebug()<<"victory!"<<endl;
+    }
+
+
+
+
+
+
+
+
+
+}
+
+void MainWindow::Iswinheng()
+{
+    int result=0;
+    for(int i=0;i<5;i++)
+    {
+        if(clicked_X-i>=0)
+            result =game->Isaddfiveheng(clicked_X-i,clicked_Y,clicked_color);
+
+        if(result == 1)
+        {
+            game->gamestatus = WIN;
+        }
+
+    }
+}
+
+
+
+
+
+
+
+
 

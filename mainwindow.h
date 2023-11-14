@@ -29,7 +29,8 @@ private:
     void initAIgame();
     void initMANgame();
     void add_chess_data();
-
+    void Iswin();
+    void Iswinheng();
 
 private:
     Ui::MainWindow *ui;
@@ -38,6 +39,8 @@ private:
     bool ISchoose = false;
     int choose_X,choose_Y;
     bool paintzi = false;
+    int clicked_X,clicked_Y;
+    int clicked_color;
 
 };
 #endif // MAINWINDOW_H
