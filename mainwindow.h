@@ -28,6 +28,7 @@ private:
     void set_up();
     void initAIgame();
     void initMANgame();
+    void add_chess_data();
 
 
 private:
@@ -36,6 +37,7 @@ private:
     Gametype game_type;
     bool ISchoose = false;
     int choose_X,choose_Y;
+    bool paintzi = false;
 
 };
 #endif // MAINWINDOW_H

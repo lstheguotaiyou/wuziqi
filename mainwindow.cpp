@@ -10,8 +10,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 //    this->setGeometry(0,0,16*50+4,16*50+4);
-    this->setGeometry(0,0,board_grad_size*block_size+2*margin,board_grad_size*block_size+2*margin);
-    this->setFixedSize(board_grad_size*block_size+2*margin,board_grad_size*block_size+2*margin);
+    this->setGeometry(0,0,board_number_size*block_size+2*margin,board_number_size*block_size+2*margin);
+    this->setFixedSize(board_number_size*block_size+2*margin,board_number_size*block_size+2*margin);
     //start_up this define a setup fuction
     set_up();
 
@@ -35,28 +35,69 @@ void MainWindow::paintEvent(QPaintEvent *event)
     QPainter painter(this);
 //    painter.setRenderHint(QPainter::Antialiasing,true);
 
-    for(int i=0;i<board_grad_size+1;i++)
+    for(int i=0;i<board_number_size+1;i++)
     {
         painter.drawLine(margin+i*block_size,margin,margin+i*block_size,this->height()- margin);
         painter.drawLine(margin,margin+i*block_size,this->width()-margin,margin+i*block_size);
     }
     //
 
+    QPen pen;
+    QBrush brush;
     if(ISchoose)
     {
-        QPen pen;
-        QBrush brush;
-        pen.setColor(Qt::black);
-        brush.setColor(Qt::darkBlue);
+//        if(game->chesscolor ==black)
+//        {
+//            pen.setColor(Qt::black);
+//            brush.setColor(Qt::darkRed);
+//        }
+        if(game->chesscolor ==black)
+        {
+            pen.setColor(Qt::black);
+            brush.setColor(Qt::black);
+        }
+        else
+        {
+            pen.setColor(Qt::white);
+            brush.setColor(Qt::white);
+        }
+
+
         brush.setStyle(Qt::SolidPattern);
         painter.setPen(pen);
         painter.setBrush(brush);
         painter.drawRect(choose_X-3,choose_Y-3,6,6);
     }
+    //画出棋盘上的妻子
+    if(paintzi)
+    {
+        for(int i = 0;i<board_number_size;i++)
+        {
+            for(int j = 0;j<board_number_size;j++)
+            {
+                if(game->board_chess_data[i][j]==1)
+                {
+                    pen.setColor(Qt::black);
+                    brush.setColor(Qt::black);
+                    painter.drawEllipse(margin+block_size*i-chess_radius,margin+block_size*j-chess_radius,2*chess_radius,2*chess_radius);
+//                    qDebug()<<i<<","<<j<<endl;
+                }
+                if(game->board_chess_data[i][j]==-1)
+                {
+                    pen.setColor(Qt::white);
+                    brush.setColor(Qt::white);
+                    painter.drawEllipse(margin+block_size*i-chess_radius,margin+block_size*j-chess_radius,2*chess_radius,2*chess_radius);
+//                    qDebug()<<i<<","<<j<<endl;
+
+                }
+            }
+        }
+    }
+//    paintzi = false;
 
 // WARNING:更新函数
     update();
-
+//painter.drawEllipse(margin+block_size*1-25,margin+block_size*1-25,50,50);
 }
 
 void MainWindow::mouseMoveEvent(QMouseEvent *event)
@@ -82,6 +123,7 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
                     choose_X = left_up_X;
                     choose_Y = left_up_Y;
                     ISchoose = true;
+//                    qDebug()<<choose_X<<","<<choose_Y<<endl;
                     break;
 
             }
@@ -95,6 +137,7 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
         if(i==3)
         {
             left_up_Y-=block_size;
+            //fix a bug
             ISchoose = false;
         }
     }
@@ -113,7 +156,7 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *event)
     //luozi条件判断,1.选中
     if(ISchoose)
     {
-
+        add_chess_data();
     }
 }
 
@@ -130,5 +173,34 @@ void MainWindow::initAIgame()
     game->gametype = AI;
     game->gamestatus =PLAYING;
     game->startgame(game->gametype);
+}
+
+void MainWindow::add_chess_data()
+{
+//    qDebug()<<(choose_X-margin)/block_size<<(choose_Y-margin)/block_size<<endl;
+    int colomn = (choose_X-margin)/block_size;
+    int line = (choose_Y-margin)/block_size;
+    //判断没有棋子
+    if(game->board_chess_data[colomn][line] ==0)
+    {
+        //哎呀自己SB了
+        if(game->chesscolor == black)
+        {
+            game->board_chess_data[colomn][line] = 1;
+            game->chesscolor = white;
+            qDebug()<<"1"<<endl;
+        }
+        else
+        {
+            game->board_chess_data[colomn][line] = -1;
+            game->chesscolor = black;
+//            qDebug()<<"2"<<endl;
+
+        }
+
+//        qDebug()<<"luole"<<endl;
+        //luozi标志，在paint函数中判断的
+        paintzi = true;
+    }
 }
 

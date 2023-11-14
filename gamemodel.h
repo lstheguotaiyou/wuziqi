@@ -12,7 +12,12 @@ enum Gamestatus{
     WIN,
     DEFEAT
 };
-const int board_grad_size = 16;
+enum chess_color{
+    black,
+    white
+};
+
+const int board_number_size = 16;
 const int margin = 30;
 const int block_size = 50;
 const int chess_radius = 20;
@@ -30,6 +35,7 @@ public:
     Gametype gametype;
     Gamestatus gamestatus;
     void startgame(Gametype type);
+    chess_color chesscolor ;
 
 
 

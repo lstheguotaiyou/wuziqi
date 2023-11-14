@@ -8,11 +8,12 @@ gamemodel::gamemodel()
 void gamemodel::startgame(Gametype type)
 {
     type = gametype;
+    chesscolor = black;
     board_chess_data.clear();
-    for(int i = 0;i<board_grad_size;i++)
+    for(int i = 0;i<board_number_size;i++)
     {
         std::vector<int> lineboard;
-        for(int j = 0;j<board_grad_size;j++)
+        for(int j = 0;j<board_number_size;j++)
             lineboard.push_back(0);
         board_chess_data.push_back(lineboard);
     }
