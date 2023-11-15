@@ -31,6 +31,7 @@ private:
     void add_chess_data();
     void Iswin();
     void Iswinheng();
+    void Iswinshu();
 
 private:
     Ui::MainWindow *ui;

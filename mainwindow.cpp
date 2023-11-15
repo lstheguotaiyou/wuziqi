@@ -226,6 +226,7 @@ void MainWindow::Iswin()
 {
     //根据行列和颜色判断
     Iswinheng();
+    Iswinshu();
     if(game->gamestatus == WIN)
     {
         qDebug()<<"victory!"<<endl;
@@ -252,10 +253,41 @@ void MainWindow::Iswinheng()
         if(result == 1)
         {
             game->gamestatus = WIN;
+            qDebug()<<"black win!"<<endl;
+        }
+        if(result == -1)
+        {
+            game->gamestatus = WIN;
+            qDebug()<<"white win!"<<endl;
         }
 
     }
 }
+
+void MainWindow::Iswinshu()
+{
+    int result=0;
+    for(int i=0;i<5;i++)
+    {
+        if(clicked_Y-i>=0)
+            result =game->Isaddfiveshu(clicked_X,clicked_Y-i,clicked_color);
+        if(result == 1)
+        {
+            game->gamestatus = WIN;
+            qDebug()<<"black win!"<<endl;
+        }
+        if(result == -1)
+        {
+            game->gamestatus = WIN;
+            qDebug()<<"white win!"<<endl;
+        }
+
+    }
+
+
+}
+
+
 
 
 

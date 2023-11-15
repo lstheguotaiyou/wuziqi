@@ -21,6 +21,23 @@ int gamemodel::Isaddfiveheng(int x, int y,int signal)
 
 
 }
+
+int gamemodel::Isaddfiveshu(int x, int y, int signal)
+{
+    int result;
+    if(y+4>15)
+        return 0;
+    else
+    result = board_chess_data[x][y]+board_chess_data[x][y+1]+board_chess_data[x][y+2]+board_chess_data[x][y+3]+board_chess_data[x][y+4];
+    if(signal == 1&& result == 5)
+        return 1;
+    else if(signal == -1 && result ==-5)
+        return -1;
+    else
+        return 0;
+
+
+}
 //first setup data
 void gamemodel::startgame(Gametype type)
 {
