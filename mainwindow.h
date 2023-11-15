@@ -32,6 +32,11 @@ private:
     void Iswin();
     void Iswinheng();
     void Iswinshu();
+    void Iswinpie();
+    void Iswinna();
+
+
+
 
 private:
     Ui::MainWindow *ui;

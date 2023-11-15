@@ -30,6 +30,10 @@ public:
     gamemodel();
     int Isaddfiveheng(int x,int y,int signal);
     int Isaddfiveshu(int x,int y,int signal);
+    int Isaddfivepie(int x,int y,int signal);
+    int Isaddfivena(int x,int y,int signal);
+
+
 
 public:
     std::vector<std::vector<int>> board_chess_data;

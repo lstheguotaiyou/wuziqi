@@ -227,6 +227,8 @@ void MainWindow::Iswin()
     //根据行列和颜色判断
     Iswinheng();
     Iswinshu();
+    Iswinpie();
+    Iswinna();
     if(game->gamestatus == WIN)
     {
         qDebug()<<"victory!"<<endl;
@@ -285,6 +287,54 @@ void MainWindow::Iswinshu()
     }
 
 
+}
+
+void MainWindow::Iswinpie()
+{
+    int result=0;
+    for(int i=0;i<5;i++)
+    {
+        if(clicked_Y-i>=0 && clicked_X-i>=0)
+        {
+            result =game->Isaddfivepie(clicked_X-i,clicked_Y-i,clicked_color);
+//            qDebug()<<"resu"
+        if(result == 1)
+        {
+            game->gamestatus = WIN;
+            qDebug()<<"black win!"<<endl;
+        }
+        if(result == -1)
+        {
+            game->gamestatus = WIN;
+            qDebug()<<"white win!"<<endl;
+        }
+
+        }
+    }
+}
+
+void MainWindow::Iswinna()
+{
+    int result=0;
+    for(int i=0;i<5;i++)
+    {
+        if(clicked_Y-i>=0 && clicked_X+i<15)
+        {
+            result =game->Isaddfivena(clicked_X+i,clicked_Y-i,clicked_color);
+//            qDebug()<<"resu"
+        if(result == 1)
+        {
+            game->gamestatus = WIN;
+            qDebug()<<"black win!"<<endl;
+        }
+        if(result == -1)
+        {
+            game->gamestatus = WIN;
+            qDebug()<<"white win!"<<endl;
+        }
+
+        }
+    }
 }
 
 
